@@ -18,12 +18,12 @@ import java.util.concurrent.locks.Condition
 
 //37d018edde47a04b1f777cbbfb889f18
 class MainActivity : AppCompatActivity() {
-    private  lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by lazy {ActivityMainBinding.inflate(layoutInflater)  }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
 
 
         setContentView(binding.root)
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-                if(query != null)
-                    fetchWeatherData( query)
+                if(query != null){
+                    fetchWeatherData( query)}
                     return true
 
             }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             .build().create(ApiInterface::class.java)
 
         val response =
-            retrofit.getWeatherDate(cityName,"jaipur", "37d018edde47a04b1f777cbbfb889f18", "metric")
+            retrofit.getWeatherDate(cityName, "37d018edde47a04b1f777cbbfb889f18", "metric")
         response.enqueue(object : Callback<weatherapp> {
             override fun onResponse(call: Call<weatherapp>, response: Response<weatherapp>) {
                 val responseBody = response.body()
@@ -80,14 +80,14 @@ class MainActivity : AppCompatActivity() {
                     binding.max.text = "max $max °C"
                     binding.min.text = "min $max °C"
                     binding.humidity.text = "$humidity %"
-                    binding.windspeed.text = "$wind"
+                    binding.windspeed.text = "$wind m/s"
                     binding.sunrise.text = "${time(sunrise)}"
                     binding.sunset.text = "${time(sunset)}"
                     binding.sea.text = "$sea hpa"
                     binding.condition.text = condition
                     binding.day.text = dayName(System.currentTimeMillis())
                     binding.date.text = date()
-                    binding cityName.text = "$cityName"
+                   binding.location.text = "$cityName"
 
 
                     //Log.d("TAG","onResponse:$temperature")
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<weatherapp>, t: Throwable) {
-                TODO("Not yet implemented")
+               println(t?.message)
             }
 
         })

@@ -11,7 +11,7 @@ interface ApiInterface {
     fun getWeatherDate(
         @Query("q") city: String,
         @Query("appid") appid: String,
-        @Query("units") units: String,
-        s: String
+        @Query("units") units: String
+
     ) :Call<weatherapp>
 }
