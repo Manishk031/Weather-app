@@ -1,6 +1,6 @@
-#Weathr-app
 
- weather application to inform current weather forecasts, temperature, and rainfall using weather API to fetch real time weather data.
+
+weather application to inform current weather forecasts, temperature, and rainfall using weather API to fetch real time weather data.
 >  provide real-time weather data and forecasts.
  https://openweathermap.org/api
 
